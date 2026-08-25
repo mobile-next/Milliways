@@ -29,7 +29,7 @@ struct DeliveryView: View {
                 .ignoresSafeArea()
 
             VStack {
-                Text("Your \(orderManager.items[0].menuItem.name) is on its way!")
+                Text("Your \(orderManager.items[0].menuItem.localizedName) is on its way!")
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
@@ -39,7 +39,7 @@ struct DeliveryView: View {
 
                 Spacer()
 
-                Text(String(format: "%.8f minutes for delivery", minutesRemaining))
+                Text(String(format: localized("%.8f minutes for delivery"), minutesRemaining))
                     .font(.system(size: 20, weight: .bold, design: .monospaced))
                     .foregroundColor(.white)
                     .padding()

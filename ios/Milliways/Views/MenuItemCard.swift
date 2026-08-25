@@ -14,11 +14,11 @@ struct MenuItemCard: View {
         VStack(spacing: 0) {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(item.name)
+                    Text(item.localizedName)
                         .font(.headline)
                         .foregroundColor(.primary)
 
-                    Text(item.description)
+                    Text(item.localizedDescription)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(2)

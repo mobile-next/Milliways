@@ -58,7 +58,7 @@ struct MenuView: View {
                                 }
                             } header: {
                                 HStack {
-                                    Text(section.title)
+                                    Text(LocalizedStringKey(section.title))
                                         .font(.headline)
                                         .foregroundColor(.secondary)
                                         .padding(.horizontal)
