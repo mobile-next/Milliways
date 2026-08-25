@@ -2,7 +2,7 @@
 
   <img src="./docs/screenshot.png" alt width="300" align="right" style="margin-left: 3em; margin-bottom: 3em; border: 2px solid #444; border-radius: 12px; padding: 4px;" />
 
-A Swift iOS application inspired by The Restaurant at the End of the Universe. Designed as a testing ground for mobile automation tools and frameworks from [Mobile Next](https://github.com/mobile-next).
+An iOS (Swift) and Android (Jetpack Compose) application inspired by The Restaurant at the End of the Universe. Designed as a testing ground for mobile automation tools and frameworks from [Mobile Next](https://mobilenext.ai).
 
 ## Purpose
 
@@ -21,16 +21,25 @@ This application contains intentionally placed bugs for testing purposes.
 
 ## Getting Started
 
+### iOS
+
 1. Clone the repository
-2. Open `Milliways.xcodeproj` in Xcode
+2. Open `ios/Milliways.xcodeproj` in Xcode
 3. Build and run on iOS Simulator or real device
+
+### Android
+
+1. Clone the repository
+2. Open `android/` in Android Studio
+3. Build and run on emulator or real device
 
 ## Building with Make
 
 ```bash
-make build     # Build for simulator
-make run       # Build, install, and launch on iPhone 17 Pro simulator
+make all       # Build everything: simulator zip, IPA, and APK
+make zip       # Build iOS app for simulator (zip)
 make ipa       # Build unsigned IPA
+make apk       # Build signed release APK (Milliways.apk)
 make clean     # Clean build artifacts
 ```
 
