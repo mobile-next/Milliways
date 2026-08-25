@@ -50,4 +50,4 @@ jobs:
       - name: Upload artifact to release
         uses: softprops/action-gh-release@v3
         with:
-          files: android/app/build/outputs/apk/debug/app-debug.apk
+          files: android/app/build/outputs/apk/debug/Milliways.apk
