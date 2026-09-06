@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mobilewright test --project ios"
+    "test": "npx mobilewright test --project ios --grep navigation",
+    "test:mobilenext": "PROVIDER=mobilenext npm run test",
+    "test:browserstack": "PROVIDER=browserstack npm run test",
+    "test:saucelabs": "PROVIDER=saucelabs npm run test",
+    "test:testingbot": "PROVIDER=testingbot npm run test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+  },
+  "devDependencies": {
     "@mobilewright/test": "^0.0.53",
-    "mobilewright": "^0.0.53"
+    "mobilewright": "^0.0.53",
+    "@browserstack/mobilewright": "^0.1.1"
   }
 }
