@@ -16,8 +16,8 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@mobilewright/test": "^0.0.53",
-    "mobilewright": "^0.0.53",
+    "@mobilewright/test": "^0.0.56",
+    "mobilewright": "^0.0.56",
     "@browserstack/mobilewright": "^0.1.1"
   }
 }
