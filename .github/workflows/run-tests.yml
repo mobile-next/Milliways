@@ -16,14 +16,14 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Build .ipa for iOS real device
         run: |
           make ipa
 
       - name: Upload .ipa artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ipa-build
           path: ios/build/Milliways-unsigned.ipa
@@ -34,10 +34,10 @@ jobs:
     env:
       MOBILENEXT_API_KEY: ${{ secrets.MOBILENEXT_API_KEY }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Download .ipa artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: ipa-build
           path: ios/build
@@ -50,7 +50,7 @@ jobs:
           npm run test || true
 
       - name: Upload test report
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: mobilewright-report
