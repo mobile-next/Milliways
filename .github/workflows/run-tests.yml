@@ -57,13 +57,13 @@ jobs:
           path: tests/mobilewright-report
 
       - uses: aws-actions/configure-aws-credentials@v5
-        if: always()
+        if: always() && github.ref == 'refs/heads/main'
         with:
           role-to-assume: ${{ secrets.AWS_SAMPLES_UPLOAD_ROLE_ARN }}
           aws-region: us-west-2
 
       - name: Upload samples to S3
-        if: always()
+        if: always() && github.ref == 'refs/heads/main'
         run: |
           GITSHA=$( git rev-parse HEAD )
           aws s3 cp --quiet --recursive --acl public-read tests/mobilewright-report s3://mobilewright-samples/milliways/runs/$GITSHA
