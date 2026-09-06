@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mobilewright test --project ios --grep navigation",
+    "test": "npx mobilewright test --project ios",
     "test:mobilenext": "PROVIDER=mobilenext npm run test",
     "test:browserstack": "PROVIDER=browserstack npm run test",
     "test:saucelabs": "PROVIDER=saucelabs npm run test",
