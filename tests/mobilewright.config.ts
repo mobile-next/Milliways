@@ -1,6 +1,7 @@
 import { defineConfig, type MobilewrightConfig } from 'mobilewright';
 import { MobileNextDriver } from '@mobilewright/driver-mobilenext';
 import { browserStackDriver } from '@browserstack/mobilewright';
+import { resolve } from 'node:path';
 
 function requireEnv(names: Array<string>) {
   for (const name of names) {
@@ -8,6 +9,10 @@ function requireEnv(names: Array<string>) {
       throw new Error(`Environment variable ${name} must be set before running tests`);
     }
   }
+}
+
+function iosBuild (file: string): string {
+  return resolve(process.cwd(), '../ios/build', file);
 }
 
 const config: MobilewrightConfig = {
@@ -40,7 +45,7 @@ const config: MobilewrightConfig = {
       use: {
         platform: "ios",
         deviceType: "simulator",
-        installApps: ["../ios/build/Milliways-simulator.zip"],
+        installApps: [iosBuild("Milliways-simulator.zip")],
       },
     },
     {
@@ -49,7 +54,7 @@ const config: MobilewrightConfig = {
         platform: "ios",
         deviceType: "real",
         osVersion: ">=18",
-        installApps: ["../ios/build/Milliways-unsigned.ipa"],
+        installApps: [iosBuild("Milliways-unsigned.ipa")],
       }
     },
   ],
