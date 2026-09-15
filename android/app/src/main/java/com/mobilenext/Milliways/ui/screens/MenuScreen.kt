@@ -64,7 +64,7 @@ fun MenuScreen(
                 }
                 Text(
                     "Milliways",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f),
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -101,7 +101,7 @@ fun MenuScreen(
                     item {
                         Text(
                             section.title,
-                            style = MaterialTheme.typography.labelLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -116,7 +116,7 @@ fun MenuScreen(
                 item {
                     Text(
                         "* Shipping beyond 5 light-years distance might cost extra",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontStyle = FontStyle.Italic,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 40.dp)
@@ -129,14 +129,14 @@ fun MenuScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 40.dp)
                         .background(MilliwaysOrange, RoundedCornerShape(12.dp))
                         .clickable(onClick = onViewOrder)
-                        .padding(16.dp)
+                        .padding(20.dp)
                 ) {
-                    Text("View Order", color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
-                    Text("${orderManager.totalQuantity} items", color = Color.White, modifier = Modifier.padding(end = 8.dp))
-                    Text(formatPrice(orderManager.totalPrice), color = Color.White, fontWeight = FontWeight.Bold)
+                    Text("View Order", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    Text("${orderManager.totalQuantity} items", color = Color.White, fontSize = 18.sp, modifier = Modifier.padding(end = 8.dp))
+                    Text(formatPrice(orderManager.totalPrice), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 }
             }
         }

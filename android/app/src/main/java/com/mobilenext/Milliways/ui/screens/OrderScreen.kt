@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -43,6 +44,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mobilenext.Milliways.model.OrderManager
 import com.mobilenext.Milliways.model.formatPrice
 import com.mobilenext.Milliways.ui.theme.MilliwaysBlue
@@ -109,9 +111,9 @@ fun OrderScreen(
                 onClick = onPlaceOrder,
                 colors = ButtonDefaults.buttonColors(containerColor = MilliwaysGreen),
                 shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 40.dp).height(56.dp)
             ) {
-                Text("Place Order", color = Color.White, fontWeight = FontWeight.Bold)
+                Text("Place Order", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
         } else {
             LazyColumn(modifier = Modifier.weight(1f)) {
@@ -244,9 +246,9 @@ fun OrderScreen(
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = MilliwaysGreen),
                 shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 40.dp).height(56.dp)
             ) {
-                Text("Place Order", color = Color.White, fontWeight = FontWeight.Bold)
+                Text("Place Order", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
