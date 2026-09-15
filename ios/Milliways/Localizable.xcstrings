@@ -1,0 +1,516 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "* Shipping beyond 5 light-years distance might cost extra" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "※5光年を超える配送には追加料金がかかる場合があります"
+          }
+        }
+      }
+    },
+    "%.8f minutes for delivery" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "配達まであと %.8f 分"
+          }
+        }
+      }
+    },
+    "%lld items" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 点"
+          }
+        }
+      }
+    },
+    "Add to Order" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注文に追加"
+          }
+        }
+      }
+    },
+    "Ameglian Major Cow" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アメグリアン・メジャー・カウ"
+          }
+        }
+      }
+    },
+    "Apply" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "適用"
+          }
+        }
+      }
+    },
+    "A bowl of shrimp that exist in multiple flavor states until you take the first bite" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最初のひと口を食べるまで、複数の味の状態が重ね合わさったままのエビの一皿"
+          }
+        }
+      }
+    },
+    "An impossible dish that paradoxically tastes like everything you've ever eaten and nothing at all" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これまで食べたすべての味がすると同時に、何の味もしないという逆説的で不可能な一品"
+          }
+        }
+      }
+    },
+    "Coffee" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コーヒー"
+          }
+        }
+      }
+    },
+    "Coupon %@" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クーポン %@"
+          }
+        }
+      }
+    },
+    "Coupon code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クーポンコード"
+          }
+        }
+      }
+    },
+    "Dark Matter Martini" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダークマター・マティーニ"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
+          }
+        }
+      }
+    },
+    "Delivered across the galaxy" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "銀河を越えてお届け済み"
+          }
+        }
+      }
+    },
+    "DRINKS" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドリンク"
+          }
+        }
+      }
+    },
+    "Feb 17, 2065" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2065年2月17日"
+          }
+        }
+      }
+    },
+    "Fresh greens from the hydroponic gardens of Alpha Centauri" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アルファ・ケンタウリの水耕農園から届いた新鮮な葉野菜"
+          }
+        }
+      }
+    },
+    "Green Salad" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グリーンサラダ"
+          }
+        }
+      }
+    },
+    "Hi Glorpax!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "こんにちは、グロルパックスさん！"
+          }
+        }
+      }
+    },
+    "Hot caffeinated beverage to keep you awake through the apocalypse" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "世界の終わりまで目を覚ましていられる、熱いカフェイン飲料"
+          }
+        }
+      }
+    },
+    "Infinite Improbability Float" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無限不可能性フロート"
+          }
+        }
+      }
+    },
+    "Invalid coupon code" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クーポンコードが無効です"
+          }
+        }
+      }
+    },
+    "Jun 3, 2065" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2065年6月3日"
+          }
+        }
+      }
+    },
+    "Krikkit Fried Logic" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリキット風フライド・ロジック"
+          }
+        }
+      }
+    },
+    "Light-years" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "光年"
+          }
+        }
+      }
+    },
+    "Like having your brains smashed out by a slice of lemon wrapped around a large gold brick" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大きな金塊に巻きつけたレモンの薄切りで脳みそを叩き出されるような味わい"
+          }
+        }
+      }
+    },
+    "MAIN DISHES" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メイン料理"
+          }
+        }
+      }
+    },
+    "Milliways" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ミリウェイズ"
+          }
+        }
+      }
+    },
+    "My Account" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マイアカウント"
+          }
+        }
+      }
+    },
+    "New Order" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規注文"
+          }
+        }
+      }
+    },
+    "Oct 12, 2065" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2065年10月12日"
+          }
+        }
+      }
+    },
+    "Odds of getting the same flavor twice are approximately 1 in 10⁸⁰⁰⁰⁰⁰" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同じ味に二度当たる確率は、およそ 10⁸⁰⁰⁰⁰⁰ 分の 1"
+          }
+        }
+      }
+    },
+    "Orders" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注文数"
+          }
+        }
+      }
+    },
+    "Pan Galactic Gargle Blaster" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "汎銀河ガラガラドッカン"
+          }
+        }
+      }
+    },
+    "Past Orders" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "過去の注文"
+          }
+        }
+      }
+    },
+    "Place Order" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注文を確定する"
+          }
+        }
+      }
+    },
+    "Pro Cosmic Foodie 🌌" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロ・コズミック・フーディー 🌌"
+          }
+        }
+      }
+    },
+    "Pure H2O from Earth's finest springs" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地球有数の名水から採れた純粋な H2O"
+          }
+        }
+      }
+    },
+    "Quantum Shrimp Cascade" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クアンタム・シュリンプ・カスケード"
+          }
+        }
+      }
+    },
+    "So dense it distorts the glass around it; one sip and your hangover develops before you finish drinking" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グラスそのものを歪ませるほど高密度。ひと口飲めば、飲み終わる前に二日酔いが始まります"
+          }
+        }
+      }
+    },
+    "Soup of the Day" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本日のスープ"
+          }
+        }
+      }
+    },
+    "The finest cut from a cow that wants to be eaten" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "食べられることを望む牛から取れた、最高の一切れ"
+          }
+        }
+      }
+    },
+    "Today's special soup, ingredients vary by solar system" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本日のおすすめスープ。材料は太陽系ごとに異なります"
+          }
+        }
+      }
+    },
+    "Total" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合計"
+          }
+        }
+      }
+    },
+    "Total Spent" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用総額"
+          }
+        }
+      }
+    },
+    "View Order" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注文を見る"
+          }
+        }
+      }
+    },
+    "Water" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水"
+          }
+        }
+      }
+    },
+    "Welcome to Milliways" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ミリウェイズへようこそ"
+          }
+        }
+      }
+    },
+    "Your %@ is on its way!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ をお届け中です！"
+          }
+        }
+      }
+    },
+    "Your Order" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご注文内容"
+          }
+        }
+      }
+    },
+    "Your order is empty" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注文はまだ空です"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

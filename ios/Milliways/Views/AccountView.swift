@@ -91,7 +91,7 @@ struct AccountView: View {
                     ForEach(pastOrders) { order in
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(order.date)
+                                Text(LocalizedStringKey(order.date))
                                     .font(.headline)
                                 Text("Delivered across the galaxy")
                                     .font(.caption)
