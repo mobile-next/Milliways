@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
@@ -57,11 +58,11 @@ fun WelcomeScreen(
             Text(
                 text = "Welcome to Milliways",
                 color = Color.White,
-                fontSize = 28.sp,
+                fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 60.dp),
+                    .padding(top = 100.dp),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
 
@@ -83,7 +84,7 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .padding(horizontal = 40.dp)
+                    .padding(horizontal = 8.dp)
                     .offset(y = (floatOffset - 40).dp)
             )
 
@@ -93,10 +94,11 @@ fun WelcomeScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = MilliwaysOrange),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 60.dp)
-                    .padding(bottom = 24.dp)
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 48.dp)
+                    .height(64.dp)
             ) {
-                Text("New Order", color = Color.White, fontWeight = FontWeight.Bold)
+                Text("New Order", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
             }
         }
 

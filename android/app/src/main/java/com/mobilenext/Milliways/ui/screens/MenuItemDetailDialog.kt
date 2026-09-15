@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -37,6 +38,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.mobilenext.Milliways.model.MenuItem
@@ -60,6 +62,8 @@ fun MenuItemDetailDialog(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+                .statusBarsPadding()
+                .navigationBarsPadding()
         ) {
             Box(modifier = Modifier.fillMaxWidth().height(320.dp)) {
                 if (item.imageRes != null) {
@@ -74,7 +78,7 @@ fun MenuItemDetailDialog(
                 }
                 IconButton(
                     onClick = onDismiss,
-                    modifier = Modifier.align(Alignment.TopEnd).statusBarsPadding().padding(12.dp)
+                    modifier = Modifier.align(Alignment.TopEnd).padding(12.dp)
                 ) {
                     Icon(
                         Icons.Filled.Close,
@@ -114,7 +118,7 @@ fun MenuItemDetailDialog(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 40.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -146,9 +150,9 @@ fun MenuItemDetailDialog(
                     onClick = { onAddToOrder(quantity) },
                     colors = ButtonDefaults.buttonColors(containerColor = MilliwaysOrange),
                     shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f).height(56.dp)
                 ) {
-                    Text("Add to Order", color = Color.White, fontWeight = FontWeight.Bold)
+                    Text("Add to Order", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 }
             }
         }

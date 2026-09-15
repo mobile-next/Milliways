@@ -34,10 +34,10 @@ fun MenuItemCard(item: MenuItem, onClick: () -> Unit) {
                 .padding(vertical = 12.dp)
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(item.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Text(item.name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
                 Text(
                     item.description,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -45,7 +45,7 @@ fun MenuItemCard(item: MenuItem, onClick: () -> Unit) {
                 )
                 Text(
                     formatPrice(item.price),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MilliwaysBlue,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -57,13 +57,13 @@ fun MenuItemCard(item: MenuItem, onClick: () -> Unit) {
                     contentDescription = item.name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(60.dp)
+                        .size(72.dp)
                         .clip(RoundedCornerShape(8.dp))
                 )
             } else {
                 Column(
                     modifier = Modifier
-                        .size(60.dp)
+                        .size(72.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .background(item.color)
                 ) {}
