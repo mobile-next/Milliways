@@ -4,20 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mobilewright test --project ios",
-    "test:mobilenext": "PROVIDER=mobilenext npm run test",
-    "test:browserstack": "PROVIDER=browserstack npm run test",
-    "test:saucelabs": "PROVIDER=saucelabs npm run test",
-    "test:testingbot": "PROVIDER=testingbot npm run test"
+    "test": "npx mobilewright test",
+    "test:ios": "npm run test -- --project ios",
+    "test:simulator": "npm run test -- --project ios-simulator",
+    "test:mobilenext": "PROVIDER=mobilenext npm run test -- --project ios",
+    "test:browserstack": "PROVIDER=browserstack npm run test -- --project ios",
+    "test:saucelabs": "PROVIDER=saucelabs npm run test -- --project ios",
+    "test:testingbot": "PROVIDER=testingbot npm run test -- --project ios"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mobilewright/test": "^0.0.64",
+    "mobilewright": "^0.0.64"
   },
   "devDependencies": {
-    "@mobilewright/test": "^0.0.60",
-    "mobilewright": "^0.0.60",
     "@browserstack/mobilewright": "^0.1.1"
   }
 }
