@@ -1,5 +1,6 @@
 import { defineConfig, type MobilewrightConfig } from 'mobilewright';
 import { MobileNextDriver } from '@mobilewright/driver-mobilenext';
+import { MobilecliDriver } from '@mobilewright/driver-mobilecli';
 import { browserStackDriver } from '@browserstack/mobilewright';
 import { resolve } from 'node:path';
 
@@ -37,7 +38,7 @@ const config: MobilewrightConfig = {
   fullyParallel: true,
 
   // how many workers (devices) at the same time?
-  workers: process.env.CI ? 2 : 1,
+  workers: 1,
 
   projects: [
     {
@@ -71,9 +72,7 @@ const provider = process.env['PROVIDER'] || "mobilecli";
 switch (provider) {
   case 'mobilenext':
   requireEnv(['MOBILENEXT_API_KEY']);
-  config.driver = new MobileNextDriver({
-    apiKey: process.env['MOBILENEXT_API_KEY'],
-  });
+  config.driver = new MobileNextDriver({});
   break;
 
   case 'browserstack':
@@ -82,7 +81,10 @@ switch (provider) {
   break;
 
   case 'mobilecli':
-  // default driver, local only
+  // default driver, local only. MOBILECLI_PATH points at a custom mobilecli binary (e.g. a dev build)
+  if (process.env['MOBILECLI_PATH']) {
+    config.driver = new MobilecliDriver({ mobilecliPath: process.env['MOBILECLI_PATH'] });
+  }
   break;
 
   default:
