@@ -1,7 +1,7 @@
 SCHEME = Milliways
 PROJECT = Milliways.xcodeproj
 BUILD_DIR = build
-DEVICE_NAME = iPhone 18 Pro
+DEVICE_NAME ?= iPhone 18 Pro
 DEVICE_ID = $(shell xcrun simctl list devices available | grep "$(DEVICE_NAME) " | head -1 | awk -F '[()]' '{print $$2}')
 APP_PATH = $(BUILD_DIR)/Build/Products/Debug-iphonesimulator/$(SCHEME).app
 ARCHIVE_PATH = $(BUILD_DIR)/$(SCHEME).xcarchive
@@ -14,7 +14,7 @@ build:
 		-project $(PROJECT) \
 		-scheme $(SCHEME) \
 		-configuration Debug \
-		-destination "platform=iOS Simulator,name=$(DEVICE_NAME)" \
+		-destination "generic/platform=iOS Simulator" \
 		-derivedDataPath $(BUILD_DIR) \
 		build
 
