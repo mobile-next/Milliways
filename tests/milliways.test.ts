@@ -6,7 +6,7 @@
  */
 
 import { test, expect } from '@mobilewright/test';
-import type { Device, Screen } from '@mobilewright/core';
+import type { Device, Dialog, Screen } from '@mobilewright/core';
 
 // test.use({ video: 'on' });
 
@@ -339,6 +339,9 @@ test.describe('navigation', () => {
 // Edit profile form
 // ---------------------------------------------------------------------------
 
+const GROOM_LAKE = { latitude: 37.2514326, longitude: -115.8452064 };
+const LONDON = { latitude: 51.5074, longitude: -0.1278 };
+
 async function openEditProfile(screen: Screen) {
   await openAccount(screen);
   await screen.getByText('Edit Profile').tap();
@@ -353,6 +356,20 @@ async function saveProfile(screen: Screen) {
 async function restartApp(device: Device, bundleId: string) {
   await device.terminateApp(bundleId);
   await device.launchApp(bundleId);
+}
+
+// tapping "Use my location" asks for permission first; returns that prompt, still open
+async function askForMyLocation(screen: Screen): Promise<Dialog> {
+  const permissionPrompt = screen.waitForEvent('dialog');
+  await screen.getByText('Use my location').tap();
+  return permissionPrompt;
+}
+
+function expectLocationPermissionPrompt(dialog: Dialog) {
+  expect(dialog.type()).toBe('permission');
+  expect(dialog.title()).toBe('Allow “Milliways” to use your location?');
+  expect(dialog.message()).toBe('Milliways uses your location to plan delivery across the galaxy.');
+  expect(dialog.buttons()).toEqual(['Allow Once', 'Allow While Using App', 'Don’t Allow']);
 }
 
 test.describe('edit profile', () => {
@@ -414,5 +431,48 @@ test.describe('edit profile', () => {
     await screen.getByRole('button', { name: 'My Account' }).tap();
 
     await expect(screen.getByText('Hi Glorpax!')).toBeVisible();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Delivery location
+// ---------------------------------------------------------------------------
+
+test.describe('delivery location', () => {
+  test.beforeEach(async ({ device, bundleId }) => {
+    // clearing app data also resets the location permission, so the prompt shows every time
+    await device.terminateApp(bundleId!);
+    await device.clearAppData(bundleId!);
+    await device.launchApp(bundleId!);
+  });
+
+  test('anywhere on Earth warns that couriers are busy', async ({ screen, device }) => {
+    await device.setGeolocation(LONDON);
+    await openEditProfile(screen);
+
+    const permissionPrompt = await askForMyLocation(screen);
+    expectLocationPermissionPrompt(permissionPrompt);
+    const deliveryAlert = screen.waitForEvent('dialog');
+    await permissionPrompt.accept();
+
+    const alert = await deliveryAlert;
+    expect(alert.type()).toBe('alert');
+    expect(alert.title()).toBe('Delivering to Earth');
+    expect(alert.message()).toBe('Delivering to Earth might take more time than usual, our couriers are busy');
+    await alert.accept();
+    await expect(screen.getByText('Use my location')).toBeVisible();
+  });
+
+  test('Groom Lake gets a happy hour', async ({ screen, device }) => {
+    await device.setGeolocation(GROOM_LAKE);
+    await openEditProfile(screen);
+
+    const permissionPrompt = await askForMyLocation(screen);
+    const deliveryAlert = screen.waitForEvent('dialog');
+    await permissionPrompt.accept();
+
+    const alert = await deliveryAlert;
+    expect(alert.title()).toBe('Groom Lake Happy Hour!');
+    expect(alert.message()).toBe('');
   });
 });
