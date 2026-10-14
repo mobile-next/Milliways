@@ -358,9 +358,17 @@ async function restartApp(device: Device, bundleId: string) {
   await device.launchApp(bundleId);
 }
 
+function allowPermissionsWhenAsked(screen: Screen) {
+  screen.on('dialog', async (dialog) => {
+    if (dialog.isSystem()) {
+      await dialog.accept();
+    }
+  });
+}
+
 async function useMyLocation(screen: Screen) {
+  allowPermissionsWhenAsked(screen);
   await screen.getByText('Use my location').tap();
-  await screen.getByText('Allow While Using App').tap();
 }
 
 test.describe('edit profile', () => {
@@ -430,13 +438,6 @@ test.describe('edit profile', () => {
 // ---------------------------------------------------------------------------
 
 test.describe('delivery location', () => {
-  test.beforeEach(async ({ device, bundleId }) => {
-    // clearing app data also resets the location permission, so the prompt shows every time
-    await device.terminateApp(bundleId!);
-    await device.clearAppData(bundleId!);
-    await device.launchApp(bundleId!);
-  });
-
   test('anywhere on Earth warns that couriers are busy', async ({ screen, device }) => {
     await device.setGeolocation(LONDON);
     await openEditProfile(screen);
