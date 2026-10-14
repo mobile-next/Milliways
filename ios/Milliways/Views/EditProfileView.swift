@@ -20,6 +20,7 @@ struct EditProfileView: View {
     @State private var newsletter = false
     @State private var babelFish = true
     @State private var didLoad = false
+    @StateObject private var location = LocationFetcher()
 
     // BUG (intentional): only checks the email isn't empty, so "glorpax" without "@" is accepted
     private var isEmailValid: Bool {
@@ -54,6 +55,38 @@ struct EditProfileView: View {
             Section(header: Text("Preferences")) {
                 Toggle("Galactic newsletter", isOn: $newsletter)
                 Toggle("Babel fish translation", isOn: $babelFish)
+            }
+
+            Section(header: Text("Delivery")) {
+                Button(action: { location.fetch() }) {
+                    HStack {
+                        Label("Use my location", systemImage: "location.fill")
+                        if location.state == .locating {
+                            Spacer()
+                            ProgressView()
+                        }
+                    }
+                }
+                .disabled(location.state == .locating)
+                if location.state == .failed {
+                    Text("Couldn't get your location")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        .alert(location.isAtGroomLake ? "Groom Lake Happy Hour!" : "Delivering to Earth", isPresented: Binding(
+            get: { location.state == .located },
+            set: { isPresented in
+                if !isPresented {
+                    location.state = .idle
+                }
+            }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            if !location.isAtGroomLake {
+                Text("Delivering to Earth might take more time than usual, our couriers are busy")
             }
         }
         .navigationTitle("Edit Profile")
