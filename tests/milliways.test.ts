@@ -6,7 +6,7 @@
  */
 
 import { test, expect } from '@mobilewright/test';
-import type { Screen } from '@mobilewright/core';
+import type { Device, Screen } from '@mobilewright/core';
 
 // test.use({ video: 'on' });
 
@@ -332,5 +332,87 @@ test.describe('navigation', () => {
     await screen.getByLabel('New Order').tap();
     await openCart(screen);
     await expect(screen.getByText('Your order is empty')).toBeVisible();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Edit profile form
+// ---------------------------------------------------------------------------
+
+async function openEditProfile(screen: Screen) {
+  await openAccount(screen);
+  await screen.getByText('Edit Profile').tap();
+  await expect(screen.getByLabel('Display name')).toBeVisible();
+}
+
+async function saveProfile(screen: Screen) {
+  await screen.getByRole('button', { name: 'Save' }).tap();
+  await expect(screen.getByText('My Account')).toBeVisible();
+}
+
+async function restartApp(device: Device, bundleId: string) {
+  await device.terminateApp(bundleId);
+  await device.launchApp(bundleId);
+}
+
+test.describe('edit profile', () => {
+  test.beforeEach(async ({ device, bundleId }) => {
+    // start every test from the default profile
+    await device.terminateApp(bundleId!);
+    await device.clearAppData(bundleId!);
+    await device.launchApp(bundleId!);
+  });
+
+  test('form shows the default profile', async ({ screen }) => {
+    await openEditProfile(screen);
+
+    await expect(screen.getByLabel('Display name')).toHaveValue('Glorpax');
+    await expect(screen.getByLabel('Email')).toHaveValue('glorpax@milliways.space');
+    await expect(screen.getByRole('switch', { name: 'Galactic newsletter' })).not.toBeChecked();
+    await expect(screen.getByRole('switch', { name: 'Babel fish translation' })).toBeChecked();
+  });
+
+  test('saving a new name updates the greeting', async ({ screen }) => {
+    await openEditProfile(screen);
+
+    await screen.getByLabel('Display name').fill('Zaphod');
+    await saveProfile(screen);
+
+    await expect(screen.getByText('Hi Zaphod!')).toBeVisible();
+  });
+
+  test('save is disabled while the email is empty', async ({ screen }) => {
+    await openEditProfile(screen);
+
+    await screen.getByLabel('Email').clear();
+
+    await expect(screen.getByText('Email is required')).toBeVisible();
+    await expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
+  });
+
+  test('profile survives an app restart', async ({ screen, device, bundleId }) => {
+    await openEditProfile(screen);
+    await screen.getByLabel('Display name').fill('Trillian');
+    await screen.getByLabel('Phone').fill('42424242');
+    await screen.getByRole('switch', { name: 'Galactic newsletter' }).check();
+    await screen.getByRole('switch', { name: 'Babel fish translation' }).uncheck();
+    await saveProfile(screen);
+
+    await restartApp(device, bundleId!);
+    await openEditProfile(screen);
+
+    await expect(screen.getByLabel('Display name')).toHaveValue('Trillian');
+    await expect(screen.getByLabel('Phone')).toHaveValue('42424242');
+    await expect(screen.getByRole('switch', { name: 'Galactic newsletter' })).toBeChecked();
+    await expect(screen.getByRole('switch', { name: 'Babel fish translation' })).not.toBeChecked();
+  });
+
+  test('leaving without saving keeps the old profile', async ({ screen }) => {
+    await openEditProfile(screen);
+
+    await screen.getByLabel('Display name').fill('Arthur');
+    await screen.getByRole('button', { name: 'My Account' }).tap();
+
+    await expect(screen.getByText('Hi Glorpax!')).toBeVisible();
   });
 });
