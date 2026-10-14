@@ -13,6 +13,7 @@ struct PastOrder: Identifiable {
 
 struct AccountView: View {
     @Environment(\.dismiss) var dismiss
+    @AppStorage("profile.name") private var savedName = "Glorpax"
 
     let pastOrders = [
         PastOrder(date: "Feb 17, 2065", total: 78.50),
@@ -27,7 +28,7 @@ struct AccountView: View {
                 Section {
                     HStack(spacing: 16) {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Hi Glorpax!")
+                            Text("Hi \(savedName)!")
                                 .font(.system(size: 26, weight: .bold))
                             Text("Pro Cosmic Foodie 🌌")
                                 .font(.subheadline)
@@ -44,6 +45,10 @@ struct AccountView: View {
                             .overlay(Circle().stroke(Color.orange, lineWidth: 2))
                     }
                     .padding(.vertical, 8)
+
+                    NavigationLink("Edit Profile") {
+                        EditProfileView()
+                    }
                 }
 
                 // Stats
