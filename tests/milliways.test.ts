@@ -339,6 +339,9 @@ test.describe('navigation', () => {
 // Edit profile form
 // ---------------------------------------------------------------------------
 
+const GROOM_LAKE = { latitude: 37.2514326, longitude: -115.8452064 };
+const LONDON = { latitude: 51.5074, longitude: -0.1278 };
+
 async function openEditProfile(screen: Screen) {
   await openAccount(screen);
   await screen.getByText('Edit Profile').tap();
@@ -353,6 +356,11 @@ async function saveProfile(screen: Screen) {
 async function restartApp(device: Device, bundleId: string) {
   await device.terminateApp(bundleId);
   await device.launchApp(bundleId);
+}
+
+async function useMyLocation(screen: Screen) {
+  await screen.getByText('Use my location').tap();
+  await screen.getByText('Allow While Using App').tap();
 }
 
 test.describe('edit profile', () => {
@@ -414,5 +422,38 @@ test.describe('edit profile', () => {
     await screen.getByRole('button', { name: 'My Account' }).tap();
 
     await expect(screen.getByText('Hi Glorpax!')).toBeVisible();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Delivery location
+// ---------------------------------------------------------------------------
+
+test.describe('delivery location', () => {
+  test.beforeEach(async ({ device, bundleId }) => {
+    // clearing app data also resets the location permission, so the prompt shows every time
+    await device.terminateApp(bundleId!);
+    await device.clearAppData(bundleId!);
+    await device.launchApp(bundleId!);
+  });
+
+  test('anywhere on Earth warns that couriers are busy', async ({ screen, device }) => {
+    await device.setGeolocation(LONDON);
+    await openEditProfile(screen);
+
+    await useMyLocation(screen);
+
+    await expect(screen.getByText('Delivering to Earth might take more time than usual, our couriers are busy')).toBeVisible();
+    await screen.getByText('OK').tap();
+    await expect(screen.getByText('Use my location')).toBeVisible();
+  });
+
+  test('Groom Lake gets a happy hour', async ({ screen, device }) => {
+    await device.setGeolocation(GROOM_LAKE);
+    await openEditProfile(screen);
+
+    await useMyLocation(screen);
+
+    await expect(screen.getByText('Groom Lake Happy Hour!')).toBeVisible();
   });
 });
