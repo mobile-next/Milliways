@@ -12,10 +12,6 @@ function requireEnv(names: Array<string>) {
   }
 }
 
-function iosBuild (file: string): string {
-  return resolve(process.cwd(), '../ios/build', file);
-}
-
 const config: MobilewrightConfig = {
   // tests are in the current directory
   testDir: '.',
@@ -29,10 +25,8 @@ const config: MobilewrightConfig = {
   // bundle identifier of our app under test
   bundleId: 'com.mobilenext.Milliways',
 
-  // beforeEach already terminates and launches the app, so skip the fixture's
-  // own launch — otherwise every test launches twice and waits ~2s for
-  // foreground each time
-  autoAppLaunch: false,
+  // terminate and relaunch the app before each test, so every test starts fresh
+  autoAppLaunch: true,
 
   // enable paralllelism on all tests, not just their files
   fullyParallel: true,
@@ -46,7 +40,7 @@ const config: MobilewrightConfig = {
       use: {
         platform: "ios",
         deviceType: "simulator",
-        installApps: [iosBuild("Milliways-simulator.zip")],
+        installApps: ["../ios/build/Milliways-simulator.zip"],
       },
     },
     {
@@ -55,7 +49,7 @@ const config: MobilewrightConfig = {
         platform: "ios",
         deviceType: "real",
         osVersion: ">=18",
-        installApps: [iosBuild("Milliways-unsigned.ipa")],
+        installApps: ["../ios/build/Milliways-unsigned.ipa"],
       }
     },
   ],
