@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val openAccount = intent.data?.host == "account"
         setContent {
             MilliwaysTheme {
                 val navController = rememberNavController()
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         WelcomeScreen(
                             orderManager = orderManager,
+                            openAccount = openAccount,
                             onNewOrder = { navController.navigate(ROUTE_MENU) }
                         )
                     }
