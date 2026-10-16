@@ -12,6 +12,7 @@ struct MenuItemDetailView: View {
     @ObservedObject var orderManager: OrderManager
     @Environment(\.dismiss) var dismiss
     @State private var quantity = 1
+    @State private var showAgeCheck = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -72,10 +73,12 @@ struct MenuItemDetailView: View {
                                     .frame(width: 44, height: 44)
                                     .foregroundColor(quantity > 1 ? .primary : .gray)
                             }
+                            .accessibilityIdentifier("quantity-decrease")
 
                             Text("\(quantity)")
                                 .font(.headline)
                                 .frame(width: 36)
+                                .accessibilityIdentifier("quantity-value")
 
                             Button(action: {
                                 quantity += 1
@@ -85,14 +88,18 @@ struct MenuItemDetailView: View {
                                     .fontWeight(.bold)
                                     .frame(width: 44, height: 44)
                             }
+                            .accessibilityIdentifier("quantity-increase")
                         }
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
 
                         // Add to Order button
                         Button(action: {
-                            orderManager.addItem(item, quantity: quantity)
-                            dismiss()
+                            if item.name == "Dark Matter Martini" {
+                                showAgeCheck = true
+                                return
+                            }
+                            addToOrder()
                         }) {
                             Text("Add to Order")
                                 .font(.headline)
@@ -110,5 +117,14 @@ struct MenuItemDetailView: View {
             }
             .ignoresSafeArea(edges: .top)
         }
+        .alert("You must be 18 or older to order a Dark Matter Martini", isPresented: $showAgeCheck) {
+            Button("I'm 18 or older") { addToOrder() }
+            Button("Cancel", role: .cancel) {}
+        }
+    }
+
+    private func addToOrder() {
+        orderManager.addItem(item, quantity: quantity)
+        dismiss()
     }
 }
