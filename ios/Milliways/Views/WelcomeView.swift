@@ -84,5 +84,10 @@ struct WelcomeView: View {
         .sheet(isPresented: $showAccount) {
             AccountView()
         }
+        .onOpenURL { url in
+            if url.host == "account" {
+                showAccount = true
+            }
+        }
     }
 }
