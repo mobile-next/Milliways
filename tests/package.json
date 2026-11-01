@@ -17,8 +17,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mobilewright/test": "^0.0.67",
-    "mobilewright": "^0.0.67"
+    "@mobilewright/test": "^0.0.68",
+    "mobilewright": "^0.0.68"
   },
   "devDependencies": {
     "@browserstack/mobilewright": "^0.1.1"
