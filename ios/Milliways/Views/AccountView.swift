@@ -49,6 +49,9 @@ struct AccountView: View {
                     NavigationLink("Edit Profile") {
                         EditProfileView()
                     }
+                    NavigationLink("README") {
+                        ReadmeView()
+                    }
                 }
 
                 // Stats
