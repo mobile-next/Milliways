@@ -7,6 +7,7 @@
     "test": "npx mobilewright test",
     "test:ios": "npm run test -- --project ios",
     "test:simulator": "npm run test -- --project ios-simulator",
+    "test:conformance": "CONFORMANCE=1 npm run test -- --project ios-simulator",
     "test:mobilenext": "PROVIDER=mobilenext npm run test -- --project ios",
     "test:browserstack": "PROVIDER=browserstack npm run test -- --project ios",
     "test:saucelabs": "PROVIDER=saucelabs npm run test -- --project ios",

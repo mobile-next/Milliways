@@ -16,6 +16,9 @@ const config: MobilewrightConfig = {
   // tests are in the current directory
   testDir: '.',
 
+  // conformance suite is opt-in, run it with `npm run test:conformance`
+  ...(process.env['CONFORMANCE'] ? { testMatch: 'conformance.test.ts' } : { testIgnore: 'conformance.test.ts' }),
+
   // if a test fails, don't try it again
   retries: 0,
 
