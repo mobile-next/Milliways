@@ -10,6 +10,8 @@ import { test, expect } from '@mobilewright/test';
 import type { Device, Locator, Screen } from '@mobilewright/core';
 import { existsSync, readFileSync } from 'node:fs';
 
+type DeviceTarget = { platform: string | undefined; deviceType: string | undefined };
+
 type Point = { x: number; y: number };
 
 const PNG_MAGIC = [0x89, 0x50, 0x4e, 0x47];
@@ -55,6 +57,11 @@ async function openReadme(screen: Screen) {
   await openAccount(screen);
   await screen.getByText('README').tap();
   await expect(screen.getByWebView()).toBeVisible();
+}
+
+// clearAppData has no real-iOS implementation yet, so tests that need a clean app skip there
+function skipWhereClearAppDataIsUnsupported({ platform, deviceType }: DeviceTarget) {
+  test.skip(platform === 'ios' && deviceType === 'real', 'clearAppData is not supported on real iOS devices');
 }
 
 async function relaunchAppWithCleanData(device: Device, bundleId: string) {
@@ -976,7 +983,8 @@ test.describe('dialogs', () => {
     expect(handled).toBe(0);
   });
 
-  test('system permission prompt', async ({ screen, device, bundleId }) => {
+  test('system permission prompt', async ({ screen, device, bundleId, platform, deviceType }) => {
+    skipWhereClearAppDataIsUnsupported({ platform, deviceType });
     await relaunchAppWithCleanData(device, bundleId!);
     await device.setGeolocation(LONDON);
     await openEditProfile(screen);
@@ -1079,7 +1087,8 @@ test.describe('device', () => {
     await expect(screen.getByText('Welcome to Milliways')).toBeVisible();
   });
 
-  test('clearAppData resets the saved profile', async ({ screen, device, bundleId }) => {
+  test('clearAppData resets the saved profile', async ({ screen, device, bundleId, platform, deviceType }) => {
+    skipWhereClearAppDataIsUnsupported({ platform, deviceType });
     await openEditProfile(screen);
     await screen.getByLabel('Display name').fill('Trillian');
     await screen.getByRole('button', { name: 'Save' }).tap();
@@ -1101,7 +1110,8 @@ test.describe('device', () => {
     await expect(screen.getByText('My Account')).toBeVisible();
   });
 
-  test('setGeolocation drives the app location', async ({ screen, device, bundleId }) => {
+  test('setGeolocation drives the app location', async ({ screen, device, bundleId, platform, deviceType }) => {
+    skipWhereClearAppDataIsUnsupported({ platform, deviceType });
     await relaunchAppWithCleanData(device, bundleId!);
     await device.setGeolocation(LONDON);
     await openEditProfile(screen);

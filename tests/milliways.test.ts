@@ -8,6 +8,8 @@
 import { test, expect } from '@mobilewright/test';
 import type { Device, Dialog, Screen } from '@mobilewright/core';
 
+type DeviceTarget = { platform: string | undefined; deviceType: string | undefined };
+
 // every test starts with a fresh launch of the app, see autoAppLaunch in mobilewright.config.ts
 
 const GROOM_LAKE = { latitude: 37.2514326, longitude: -115.8452064 };
@@ -29,6 +31,11 @@ async function openEditProfile(screen: Screen) {
   await screen.getByLabel('person.circle').tap();
   await screen.getByText('Edit Profile').tap();
   await expect(screen.getByLabel('Display name')).toBeVisible();
+}
+
+// clearAppData has no real-iOS implementation yet, so tests that need a clean app skip there
+function skipWhereClearAppDataIsUnsupported({ platform, deviceType }: DeviceTarget) {
+  test.skip(platform === 'ios' && deviceType === 'real', 'clearAppData is not supported on real iOS devices');
 }
 
 async function relaunchApp(device: Device, bundleId: string) {
@@ -120,7 +127,8 @@ test('menu scrolls down to the shipping disclaimer and back up', async ({ screen
   await expect(screen.getByText('MAIN DISHES')).toBeVisible();
 });
 
-test('edited profile is saved and survives an app restart', async ({ screen, device, bundleId }) => {
+test('edited profile is saved and survives an app restart', async ({ screen, device, bundleId, platform, deviceType }) => {
+  skipWhereClearAppDataIsUnsupported({ platform, deviceType });
   await relaunchAppWithCleanData(device, bundleId!);
   await openEditProfile(screen);
 
@@ -145,7 +153,8 @@ test('edited profile is saved and survives an app restart', async ({ screen, dev
   await expect(screen.getByRole('switch', { name: 'Galactic newsletter' })).toBeChecked();
 });
 
-test('delivering anywhere on Earth warns that couriers are busy', async ({ screen, device, bundleId }) => {
+test('delivering anywhere on Earth warns that couriers are busy', async ({ screen, device, bundleId, platform, deviceType }) => {
+  skipWhereClearAppDataIsUnsupported({ platform, deviceType });
   await relaunchAppWithCleanData(device, bundleId!);
   await device.setGeolocation(LONDON);
   await openEditProfile(screen);
@@ -162,7 +171,8 @@ test('delivering anywhere on Earth warns that couriers are busy', async ({ scree
   await expect(screen.getByText('Use my location')).toBeVisible();
 });
 
-test('delivering to Groom Lake comes with a happy hour', async ({ screen, device, bundleId }) => {
+test('delivering to Groom Lake comes with a happy hour', async ({ screen, device, bundleId, platform, deviceType }) => {
+  skipWhereClearAppDataIsUnsupported({ platform, deviceType });
   await relaunchAppWithCleanData(device, bundleId!);
   await device.setGeolocation(GROOM_LAKE);
   await openEditProfile(screen);
