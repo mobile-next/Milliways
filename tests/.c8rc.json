@@ -1,0 +1,13 @@
+{
+  "excludeNodeModules": false,
+  "include": [
+    "node_modules/mobilewright/**",
+    "node_modules/@mobilewright/*/**"
+  ],
+  "exclude": [
+    "**/*.test.*",
+    "**/node_modules/@mobilewright/*/node_modules/**"
+  ],
+  "reporter": ["html", "text-summary"],
+  "reportsDir": "coverage"
+}

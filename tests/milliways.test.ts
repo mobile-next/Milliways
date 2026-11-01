@@ -14,19 +14,19 @@ const GROOM_LAKE = { latitude: 37.2514326, longitude: -115.8452064 };
 const LONDON = { latitude: 51.5074, longitude: -0.1278 };
 
 async function navigateToMenu(screen: Screen) {
-  await screen.getByLabel('New Order').tap();
+  await screen.getByRole('button', { name: 'New Order' }).tap();
   await expect(screen.getByText('MAIN DISHES')).toBeVisible();
 }
 
 async function addItemToCart(screen: Screen, itemName: string) {
   await screen.getByText(itemName).scrollIntoViewIfNeeded();
   await screen.getByText(itemName).tap();
-  await screen.getByLabel('Add to Order').tap();
+  await screen.getByRole('button', { name: 'Add to Order' }).tap();
   await expect(screen.getByText('View Order')).toBeVisible();
 }
 
 async function openEditProfile(screen: Screen) {
-  await screen.getByLabel('person.circle').tap();
+  await screen.getByLabel('Account').tap();
   await screen.getByText('Edit Profile').tap();
   await expect(screen.getByLabel('Display name')).toBeVisible();
 }
@@ -66,14 +66,14 @@ test('order a meal, get it delivered, and start over with an empty cart', async 
   await expect(screen.getByText('₭39.50')).toBeVisible(); // 35 + 4.50
 
   await screen.getByText('View Order').tap();
-  await screen.getByLabel('Place Order').tap();
+  await screen.getByRole('button', { name: 'Place Order' }).tap();
   await expect(screen.getByText(/is on its way/)).toBeVisible();
   await expect(screen.getByText(/minutes for delivery/)).toBeVisible();
 
   await screen.getByLabel('Close').tap();
   await expect(screen.getByText('Welcome to Milliways')).toBeVisible();
 
-  await screen.getByLabel('New Order').tap();
+  await screen.getByRole('button', { name: 'New Order' }).tap();
   await screen.getByLabel('Shopping Cart').tap();
   await expect(screen.getByText('Your order is empty')).toBeVisible();
 });
@@ -87,7 +87,7 @@ test('quantity stepper stays at 1 or above and multiplies the price', async ({ s
 
   await screen.getByLabel('+').tap();
   await screen.getByLabel('+').tap();
-  await screen.getByLabel('Add to Order').tap();
+  await screen.getByRole('button', { name: 'Add to Order' }).tap();
 
   await expect(screen.getByText('3 items')).toBeVisible();
   await screen.getByText('View Order').tap();

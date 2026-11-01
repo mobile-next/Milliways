@@ -22,7 +22,7 @@ const LONDON = { latitude: 51.5074, longitude: -0.1278 };
 // ---------------------------------------------------------------------------
 
 async function openMenu(screen: Screen) {
-  await screen.getByLabel('New Order').tap();
+  await screen.getByRole('button', { name: 'New Order' }).tap();
   await expect(screen.getByText('MAIN DISHES')).toBeVisible();
 }
 
@@ -30,18 +30,18 @@ async function openMenuItem(screen: Screen, name: string) {
   await openMenu(screen);
   await screen.getByText(name).scrollIntoViewIfNeeded();
   await screen.getByText(name).tap();
-  await expect(screen.getByLabel('Add to Order')).toBeVisible();
+  await expect(screen.getByRole('button', { name: 'Add to Order' })).toBeVisible();
 }
 
 async function openCartWithCoffee(screen: Screen) {
   await openMenuItem(screen, 'Coffee');
-  await screen.getByLabel('Add to Order').tap();
+  await screen.getByRole('button', { name: 'Add to Order' }).tap();
   await screen.getByText('View Order').tap();
-  await expect(screen.getByLabel('Place Order')).toBeVisible();
+  await expect(screen.getByRole('button', { name: 'Place Order' })).toBeVisible();
 }
 
 async function openAccount(screen: Screen) {
-  await screen.getByLabel('person.circle').tap();
+  await screen.getByLabel('Account').tap();
   await expect(screen.getByText('My Account')).toBeVisible();
 }
 
@@ -208,23 +208,19 @@ test.describe('getByText', () => {
 
 test.describe('getByLabel', () => {
   test('matches a complete label', async ({ screen }) => {
-    await expect(screen.getByLabel('New Order')).toBeVisible();
+    await expect(screen.getByLabel('Account')).toBeVisible();
   });
 
   test('is case sensitive by default', async ({ screen }) => {
-    await expect(screen.getByLabel('new order')).toHaveCount(0);
+    await expect(screen.getByLabel('account')).toHaveCount(0);
   });
 
   test('does not match a partial label by default', async ({ screen }) => {
-    await expect(screen.getByLabel('New')).toHaveCount(0);
+    await expect(screen.getByLabel('Acc')).toHaveCount(0);
   });
 
   test('matches a partial, case insensitive label with exact: false', async ({ screen }) => {
-    await expect(screen.getByLabel('new ORD', { exact: false })).toBeVisible();
-  });
-
-  test('matches an SF Symbol label', async ({ screen }) => {
-    await expect(screen.getByLabel('person.circle')).toBeVisible();
+    await expect(screen.getByLabel('acCOUN', { exact: false })).toBeVisible();
   });
 
   test('matches a text field by its label', async ({ screen }) => {
@@ -349,7 +345,7 @@ test.describe('getByRole', () => {
 
   test('finds an alert', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await expect(screen.getByRole('alert')).toBeVisible();
   });
 });
@@ -445,8 +441,8 @@ test.describe('locator composition', () => {
   });
 
   test('exists is true for a present element and false for a missing one', async ({ screen }) => {
-    expect(await screen.getByLabel('New Order').exists()).toBe(true);
-    expect(await screen.getByLabel('Old Order').exists()).toBe(false);
+    expect(await screen.getByRole('button', { name: 'New Order' }).exists()).toBe(true);
+    expect(await screen.getByRole('button', { name: 'Old Order' }).exists()).toBe(false);
   });
 });
 
@@ -456,7 +452,7 @@ test.describe('locator composition', () => {
 
 test.describe('locator actions', () => {
   test('tap', async ({ screen }) => {
-    await screen.getByLabel('New Order').tap();
+    await screen.getByRole('button', { name: 'New Order' }).tap();
     await expect(screen.getByText('MAIN DISHES')).toBeVisible();
   });
 
@@ -466,7 +462,8 @@ test.describe('locator actions', () => {
     await expect(quantity(screen)).toHaveText('3');
   });
 
-  test('longPress on a home screen icon opens its context menu, by locator and at coordinates', async ({ screen }) => {
+  test('longPress on a home screen icon opens its context menu, by locator and at coordinates', async ({ screen, platform }) => {
+    test.skip(platform === 'android', 'long-presses Safari in the iOS dock');
     await screen.pressButton('HOME');
     // the dock shows on every home screen page
     const safari = screen.getByLabel('Safari');
@@ -563,7 +560,7 @@ test.describe('locator actions', () => {
   });
 
   test('locator screenshot is a png', async ({ screen }) => {
-    const png = await screen.getByLabel('New Order').screenshot();
+    const png = await screen.getByRole('button', { name: 'New Order' }).screenshot();
     expect(startsWith(png, PNG_MAGIC)).toBe(true);
   });
 });
@@ -589,7 +586,7 @@ test.describe('locator queries', () => {
   });
 
   test('isVisible', async ({ screen }) => {
-    expect(await screen.getByLabel('New Order').isVisible()).toBe(true);
+    expect(await screen.getByRole('button', { name: 'New Order' }).isVisible()).toBe(true);
   });
 
   test('isEnabled is false for a disabled button', async ({ screen }) => {
@@ -608,19 +605,21 @@ test.describe('locator queries', () => {
   });
 
   test('isSelected is false for a plain button', async ({ screen }) => {
-    expect(await screen.getByLabel('New Order').isSelected()).toBe(false);
+    expect(await screen.getByRole('button', { name: 'New Order' }).isSelected()).toBe(false);
   });
 
   test('isFocused is true for the text field being edited', async ({ screen }) => {
     await openEditProfile(screen);
     await screen.getByLabel('Email').tap();
+    // the field takes focus a moment after the tap; isFocused reads it once, without waiting
+    await expect(screen.getByLabel('Email')).toBeFocused();
     expect(await screen.getByLabel('Email').isFocused()).toBe(true);
     expect(await screen.getByLabel('Display name').isFocused()).toBe(false);
   });
 
   test('boundingBox is inside the screen', async ({ screen, device }) => {
     const size = await device.screenSize();
-    const box = await screen.getByLabel('New Order').boundingBox();
+    const box = await screen.getByRole('button', { name: 'New Order' }).boundingBox();
     expect(box.width).toBeGreaterThan(0);
     expect(box.height).toBeGreaterThan(0);
     expect(box.x + box.width).toBeLessThanOrEqual(size.width);
@@ -628,12 +627,12 @@ test.describe('locator queries', () => {
   });
 
   test('waitFor visible', async ({ screen }) => {
-    await screen.getByLabel('New Order').tap();
+    await screen.getByRole('button', { name: 'New Order' }).tap();
     await screen.getByText('MAIN DISHES').waitFor({ state: 'visible' });
   });
 
   test('waitFor hidden', async ({ screen }) => {
-    await screen.getByLabel('New Order').tap();
+    await screen.getByRole('button', { name: 'New Order' }).tap();
     await screen.getByText('Welcome to Milliways').waitFor({ state: 'hidden' });
   });
 
@@ -661,8 +660,8 @@ test.describe('locator queries', () => {
 
 test.describe('expect matchers', () => {
   test('toBeVisible and not.toBeVisible', async ({ screen }) => {
-    await expect(screen.getByLabel('New Order')).toBeVisible();
-    await expect(screen.getByLabel('Old Order')).not.toBeVisible();
+    await expect(screen.getByRole('button', { name: 'New Order' })).toBeVisible();
+    await expect(screen.getByRole('button', { name: 'Old Order' })).not.toBeVisible();
   });
 
   test('toBeHidden', async ({ screen }) => {
@@ -685,7 +684,7 @@ test.describe('expect matchers', () => {
   });
 
   test('not.toBeSelected', async ({ screen }) => {
-    await expect(screen.getByLabel('New Order')).not.toBeSelected();
+    await expect(screen.getByRole('button', { name: 'New Order' })).not.toBeSelected();
   });
 
   test('toBeFocused', async ({ screen }) => {
@@ -782,7 +781,7 @@ test.describe('expect matchers', () => {
   });
 
   test('expect.soft keeps the test running', async ({ screen }) => {
-    await expect.soft(screen.getByLabel('New Order')).toBeVisible();
+    await expect.soft(screen.getByRole('button', { name: 'New Order' })).toBeVisible();
     await expect(screen.getByText('Welcome to Milliways')).toBeVisible();
   });
 });
@@ -793,7 +792,7 @@ test.describe('expect matchers', () => {
 
 test.describe('screen', () => {
   test('tap at coordinates', async ({ screen }) => {
-    const center = await centerOf(screen.getByLabel('New Order'));
+    const center = await centerOf(screen.getByRole('button', { name: 'New Order' }));
     await screen.tap(center.x, center.y);
     await expect(screen.getByText('MAIN DISHES')).toBeVisible();
   });
@@ -832,8 +831,16 @@ test.describe('screen', () => {
   });
 
   // iOS has no back button
-  test('goBack is not supported on iOS', async ({ screen }) => {
+  test('goBack is not supported on iOS', async ({ screen, platform }) => {
+    test.skip(platform === 'android', 'Android has a back button');
     await expect(screen.goBack()).rejects.toThrow('unsupported button: BACK');
+  });
+
+  test('goBack returns to the previous screen on Android', async ({ screen, platform }) => {
+    test.skip(platform === 'ios', 'iOS has no back button');
+    await openMenu(screen);
+    await screen.goBack();
+    await expect(screen.getByRole('button', { name: 'New Order' })).toBeVisible();
   });
 
   test('pressButton HOME leaves the app', async ({ screen, device, bundleId }) => {
@@ -863,7 +870,7 @@ test.describe('screen', () => {
 
   test('screenshot with clip', async ({ screen }) => {
     const full = await screen.screenshot();
-    const clipped = await screen.screenshot({ clip: await screen.getByLabel('New Order').boundingBox() });
+    const clipped = await screen.screenshot({ clip: await screen.getByRole('button', { name: 'New Order' }).boundingBox() });
     expect(clipped.length).toBeLessThan(full.length);
   });
 
@@ -882,13 +889,13 @@ test.describe('screen', () => {
 test.describe('dialogs', () => {
   async function askForMartini(screen: Screen) {
     await openMenuItem(screen, 'Dark Matter Martini');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
   }
 
   test('waitForEvent reads title, message and buttons', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     const dialog = await ageCheck;
     expect(dialog.type()).toBe('confirm');
     expect(dialog.isSystem()).toBe(false);
@@ -901,15 +908,15 @@ test.describe('dialogs', () => {
   test('dismiss taps the cancel button', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await ageCheck).dismiss();
-    await expect(screen.getByLabel('Add to Order')).toBeVisible();
+    await expect(screen.getByRole('button', { name: 'Add to Order' })).toBeVisible();
   });
 
   test('tap a button by name', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await ageCheck).tap("I'm 18 or older");
     await expect(screen.getByText('1 items')).toBeVisible();
   });
@@ -917,14 +924,14 @@ test.describe('dialogs', () => {
   test('waitForEvent with a predicate', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog', (dialog) => dialog.title().includes('18 or older'));
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await ageCheck).dismiss();
   });
 
   test('waitForEvent with predicate and timeout options', async ({ screen }) => {
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog', { predicate: (dialog) => dialog.type() === 'confirm', timeout: 10_000 });
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await ageCheck).dismiss();
   });
 
@@ -939,9 +946,9 @@ test.describe('dialogs', () => {
       await dialog.dismiss();
     });
     await askForMartini(screen);
-    await expect(screen.getByLabel('Add to Order')).toBeVisible();
-    await screen.getByLabel('Add to Order').tap();
-    await expect(screen.getByLabel('Add to Order')).toBeVisible();
+    await expect(screen.getByRole('button', { name: 'Add to Order' })).toBeVisible();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
+    await expect(screen.getByRole('button', { name: 'Add to Order' })).toBeVisible();
     expect(titles).toEqual([
       'You must be 18 or older to order a Dark Matter Martini',
       'You must be 18 or older to order a Dark Matter Martini',
@@ -955,9 +962,9 @@ test.describe('dialogs', () => {
       await dialog.dismiss();
     });
     await askForMartini(screen);
-    await expect(screen.getByLabel('Add to Order')).toBeVisible();
+    await expect(screen.getByRole('button', { name: 'Add to Order' })).toBeVisible();
     const second = screen.waitForEvent('dialog');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await second).dismiss();
     expect(handled).toBe(1);
   });
@@ -971,7 +978,7 @@ test.describe('dialogs', () => {
     screen.off('dialog', handler);
     await openMenuItem(screen, 'Dark Matter Martini');
     const ageCheck = screen.waitForEvent('dialog');
-    await screen.getByLabel('Add to Order').tap();
+    await screen.getByRole('button', { name: 'Add to Order' }).tap();
     await (await ageCheck).dismiss();
     expect(handled).toBe(0);
   });
@@ -1073,7 +1080,7 @@ test.describe('device', () => {
   });
 
   test('terminateApp and launchApp', async ({ screen, device, bundleId }) => {
-    await screen.getByLabel('New Order').tap();
+    await screen.getByRole('button', { name: 'New Order' }).tap();
     await device.terminateApp(bundleId!);
     await device.launchApp(bundleId!);
     await expect(screen.getByText('Welcome to Milliways')).toBeVisible();
@@ -1133,9 +1140,9 @@ test.describe('device', () => {
     await device.setFoldState('open');
   });
 
-  test('uninstallApp and installApp', async ({ screen, device, bundleId }) => {
-    const appPath = '../ios/build/Milliways-simulator.zip';
-    test.skip(!existsSync(appPath), 'simulator build only');
+  test('uninstallApp and installApp', async ({ screen, device, bundleId, installApps }) => {
+    const appPath = [installApps].flat()[0];
+    test.skip(!appPath || !existsSync(appPath), 'needs a built app in installApps');
     await device.uninstallApp(bundleId!);
     expect((await device.listApps()).map((app) => app.bundleId)).not.toContain(bundleId);
     await device.installApp(appPath);

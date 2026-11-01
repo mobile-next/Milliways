@@ -10,7 +10,8 @@
     "test:mobilenext": "PROVIDER=mobilenext npm run test -- --project ios",
     "test:browserstack": "PROVIDER=browserstack npm run test -- --project ios",
     "test:saucelabs": "PROVIDER=saucelabs npm run test -- --project ios",
-    "test:testingbot": "PROVIDER=testingbot npm run test -- --project ios"
+    "test:testingbot": "PROVIDER=testingbot npm run test -- --project ios",
+    "test:coverage": "c8 npm run test:simulator"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "mobilewright": "^0.0.65"
   },
   "devDependencies": {
-    "@browserstack/mobilewright": "^0.1.1"
+    "@browserstack/mobilewright": "^0.1.1",
+    "c8": "^12.0.0"
   }
 }

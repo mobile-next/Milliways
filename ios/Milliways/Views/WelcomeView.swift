@@ -77,6 +77,7 @@ struct WelcomeView: View {
                             .font(.system(size: 22))
                             .foregroundColor(.white)
                     }
+                    .accessibilityLabel("Account")
                 }
             }
         }

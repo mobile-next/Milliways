@@ -52,6 +52,14 @@ const config: MobilewrightConfig = {
         installApps: ["../ios/build/Milliways-unsigned.ipa"],
       }
     },
+    {
+      name: "android-emulator",
+      use: {
+        platform: "android",
+        deviceType: "emulator",
+        installApps: ["../android/app/build/outputs/apk/release/Milliways.apk"],
+      },
+    },
   ],
 
   // we want both list on screen, and an html directory
