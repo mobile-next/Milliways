@@ -42,9 +42,10 @@ import com.mobilenext.Milliways.ui.theme.MilliwaysOrange
 @Composable
 fun WelcomeScreen(
     orderManager: OrderManager,
+    openAccount: Boolean,
     onNewOrder: () -> Unit
 ) {
-    var showAccount by remember { mutableStateOf(false) }
+    var showAccount by remember { mutableStateOf(openAccount) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
