@@ -42,7 +42,7 @@ struct MenuItemDetailView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        Text(item.name)
+                        Text(item.localizedName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
 
@@ -51,7 +51,7 @@ struct MenuItemDetailView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.orange)
 
-                        Text(item.description)
+                        Text(item.localizedDescription)
                             .font(.body)
                             .foregroundColor(.secondary)
 
