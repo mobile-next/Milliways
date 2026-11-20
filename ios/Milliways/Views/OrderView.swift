@@ -59,7 +59,7 @@ struct OrderView: View {
                             }
 
                             VStack(alignment: .leading) {
-                                Text(orderItem.menuItem.name)
+                                Text(orderItem.menuItem.localizedName)
                                     .font(.headline)
                                 Text("\(orderItem.quantity) × ₭\(orderItem.menuItem.price, specifier: "%.2f")")
                                     .font(.subheadline)
@@ -124,7 +124,7 @@ struct OrderView: View {
                             .buttonStyle(.borderedProminent)
                         }
                         if let error = couponError {
-                            Text(error)
+                            Text(LocalizedStringKey(error))
                                 .font(.caption)
                                 .foregroundColor(.red)
                         }
